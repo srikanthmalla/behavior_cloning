@@ -52,6 +52,7 @@ My model consists of a convolution neural network with 5x5 filter sizes (main.py
 The model includes RELU layers to introduce nonlinearity (code line 8, 10), and the data is normalized in the model using a Keras lambda layer (code line 6) and then cropped (code line 7) so that extra noise (trees sky are not considered). 
 
 Final Response:
+
 ![alt text](videos/final.gif)
 
 #### 2. Attempts to reduce overfitting in the model
@@ -61,6 +62,7 @@ Initially when trained with Lenet the data was not not sufficient and overfits, 
 The model was trained and validated on different data sets to ensure that the model was not overfitting by using validation split (code line 20). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 Overfitted response:
+
 ![alt text](videos/3_cropped.gif)
 
 #### 3. Model parameter tuning
@@ -84,15 +86,18 @@ My first step was to start with simple single layer fully connected neural netwo
 ![alt text](videos/1_single_layer.gif)
 
 It didn't work well, then tried the Lenet architecture, 
+
 ![alt text](videos/2_lenet.gif)
 
 but the response was not good, then I cropped the images to get only road and remove noise (trees and sky), and it performed better
+
 ![alt text](videos/3_cropped.gif)
  
 Then I observed the output is biased towards left because as mentioned in the lecture there was left data more than the right.
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
 
 To combat the overfitting, I augmented the data using left and right cameras created more data and the generalization was so good, Here is the response
+
 ![alt text](videos/final.gif)
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road. HD video is here:
@@ -105,34 +110,14 @@ alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
 use a convolution neural network model similar to the Lenet I thought this model might be appropriate because in transfer learning lecture, we have noticed for different dataset we have to train it from scractch replacing the last layer according to our output (here it is steering angles)
 
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
-
-![alt text][image1]
-
 #### 3. Creation of the Training Set & Training Process
 
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
+To capture good driving behavior, I first recorded one lap on track one using center lane driving.
 
-![alt text][image2]
+To get the recovery motion not to go away from the center of road, I used left and right cameras and augmented data with constant angle (0.2) to move the other side 
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
+After the collection process, I had 8700 number of data points. I then preprocessed this data by normalizing and cropping till the road and removing the sky and trees.
 
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
+I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-Then I repeated this process on track two in order to get more data points.
-
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
-
-![alt text][image6]
-![alt text][image7]
-
-Etc ....
-
-After the collection process, I had X number of data points. I then preprocessed this data by ...
-
-
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
-
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 7 as evidenced by . I used an adam optimizer so that manually training the learning rate wasn't necessary.
