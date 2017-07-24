@@ -52,8 +52,7 @@ My model consists of a convolution neural network with 5x5 filter sizes (main.py
 The model includes RELU layers to introduce nonlinearity (code line 8, 10), and the data is normalized in the model using a Keras lambda layer (code line 6) and then cropped (code line 7) so that extra noise (trees sky are not considered). 
 
 Final Response:
-
-[! alt text](https://github.com/srikanthmalla/behavior_cloning/blob/master/videos/final.gif)
+![alt text](videos/final.gif)
 
 #### 2. Attempts to reduce overfitting in the model
 
@@ -62,7 +61,7 @@ Initially when trained with Lenet the data was not not sufficient and overfits, 
 The model was trained and validated on different data sets to ensure that the model was not overfitting by using validation split (code line 20). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 Overfitted response:
-[! alt text](https://github.com/srikanthmalla/behavior_cloning/blob/master/videos/3_cropped.gif)
+![alt text](videos/3_cropped.gif)
 
 #### 3. Model parameter tuning
 
@@ -82,19 +81,19 @@ The overall strategy for deriving a model architecture was to experiment and imp
 
 My first step was to start with simple single layer fully connected neural network, and here is the response
 
-[! alt text](https://github.com/srikanthmalla/behavior_cloning/blob/master/videos/1_single_layer.gif)
+![alt text](videos/1_single_layer.gif)
 
 It didn't work well, then tried the Lenet architecture, 
-[! alt text](https://github.com/srikanthmalla/behavior_cloning/blob/master/videos/2_lenet.gif)
+![alt text](videos/2_lenet.gif)
 
 but the response was not good, then I cropped the images to get only road and remove noise (trees and sky), and it performed better
-[!alt text](https://github.com/srikanthmalla/behavior_cloning/blob/master/videos/3_cropped.gif)
+![alt text](videos/3_cropped.gif)
  
 Then I observed the output is biased towards left because as mentioned in the lecture there was left data more than the right.
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
 
 To combat the overfitting, I augmented the data using left and right cameras created more data and the generalization was so good, Here is the response
-[!alt text](https://github.com/srikanthmalla/behavior_cloning/blob/master/videos/final.gif)
+![alt text](videos/final.gif)
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road. HD video is here:
 
