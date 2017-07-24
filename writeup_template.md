@@ -47,43 +47,60 @@ The main.py file contains the code for training and saving the convolution neura
 
 #### 1. An appropriate model architecture has been employed
 
-My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (main.py lines 18-24) 
+My model consists of a convolution neural network with 5x5 filter sizes (main.py lines 18-24) 
 
-The model includes RELU layers to introduce nonlinearity (code line 8, 10), and the data is normalized in the model using a Keras lambda layer (code line 18). 
+The model includes RELU layers to introduce nonlinearity (code line 8, 10), and the data is normalized in the model using a Keras lambda layer (code line 6) and then cropped (code line 7) so that extra noise (trees sky are not considered). 
+
+Final Response:
+
+[! alt text](https://github.com/srikanthmalla/behavior_cloning/blob/master/videos/final.gif)
 
 #### 2. Attempts to reduce overfitting in the model
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
+Initially when trained with Lenet the data was not not sufficient and overfits, so extra data is created using data augmentation by using left and right cameras
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different data sets to ensure that the model was not overfitting by using validation split (code line 20). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+
+Overfitted response:
+[! alt text](https://github.com/srikanthmalla/behavior_cloning/blob/master/videos/3_cropped.gif)
 
 #### 3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 19).
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... 
+Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road.
 
-For details about how I created the training data, see the next section. 
+Data is augmented as shown in the lecture using left, right cameras and getting more data. Which made the model to perform robust.
 
 ### Model Architecture and Training Strategy
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
+The overall strategy for deriving a model architecture was to experiment and improvise,
 
-My first step was to 
+My first step was to start with simple single layer fully connected neural network, and here is the response
 
+[! alt text](https://github.com/srikanthmalla/behavior_cloning/blob/master/videos/1_single_layer.gif)
+
+It didn't work well, then tried the Lenet architecture, 
+[! alt text](https://github.com/srikanthmalla/behavior_cloning/blob/master/videos/2_lenet.gif)
+
+but the response was not good, then I cropped the images to get only road and remove noise (trees and sky), and it performed better
+[!alt text](https://github.com/srikanthmalla/behavior_cloning/blob/master/videos/3_cropped.gif)
+ 
+Then I observed the output is biased towards left because as mentioned in the lecture there was left data more than the right.
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
 
-To combat the overfitting, I modified the model so that ...
+To combat the overfitting, I augmented the data using left and right cameras created more data and the generalization was so good, Here is the response
+[!alt text](https://github.com/srikanthmalla/behavior_cloning/blob/master/videos/final.gif)
 
-Then I ... 
+At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road. HD video is here:
 
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
-
-At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=rpTw07datrc
+" target="_blank"><img src="http://img.youtube.com/vi/rpTw07datrc/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
 #### 2. Final Model Architecture
 
